@@ -1,0 +1,311 @@
+main :-
+    modelo([A1,A2,A3,A4,A5]),
+    imprime_lista([A1,A2,A3,A4,A5]),
+    fail.
+
+main :-
+    true.
+
+modelo([
+       
+         ( Nome_1 , Idade_1 , Curso_1 , Vestido_1 , Bebida_1 , Comida_1 ),
+         ( Nome_2 , Idade_2 , Curso_2 , Vestido_2 , Bebida_2 , Comida_2 ),
+         ( Nome_3 , Idade_3 , Curso_3 , Vestido_3 , Bebida_3 , Comida_3 ),
+         ( Nome_4 , Idade_4 , Curso_4 , Vestido_4 , Bebida_4 , Comida_4 ),
+         ( Nome_5 , Idade_5 , Curso_5 , Vestido_5 , Bebida_5 , Comida_5 )
+       
+       ]):-
+
+    %------------NOMES------------
+    nome(Nome_1),
+    nome(Nome_2),
+    nome(Nome_3),
+    nome(Nome_4),
+    nome(Nome_5),
+   
+    
+    %Regina esta na quinta posicao
+    (  Nome_5 == regina  ),
+
+ 
+    
+     todosdiferentes([ Nome_1 , Nome_2 , Nome_3 , Nome_4 , Nome_5 ]),
+    
+    %------------IDADES------------
+    idade(Idade_1),
+    idade(Idade_2),
+    idade(Idade_3),
+    idade(Idade_4),
+    idade(Idade_5),
+    
+    
+
+ 
+    
+    %Em uma das pontas esta a formanda de 28 anos.
+    (  
+   
+        (  Idade_1 == vinte_oito ; Idade_5 == vinte_oito )
+    
+    
+    ),
+
+    todosdiferentes([ Idade_1 , Idade_2 , Idade_3 , Idade_4 , Idade_5 ]),
+    
+    %------------CURSOS------------
+    curso(Curso_1),
+    curso(Curso_2),
+    curso(Curso_3),
+    curso(Curso_4),
+    curso(Curso_5),
+   
+      %Leila esta ao lado de quem esta se formando em Enfermagem    
+     (  
+        (  Curso_1 == enfermagem , Nome_2 == leila );
+        (  Curso_2 == enfermagem , ( Nome_1 == leila ;  Nome_3 == leila ));
+        (  Curso_3 == enfermagem , ( Nome_2 == leila ;  Nome_4 == leila ));
+        (  Curso_4 == enfermagem , ( Nome_3 == leila ;  Nome_5 == leila ));
+        (  Curso_5 == enfermagem ,   Nome_4 == leila )
+    ),
+    
+    
+    %Miriam esta exatamente a direita da formanda de Biologia.
+    (  
+        ( Curso_1 == biologia , Nome_2 == miriam );
+        ( Curso_2 == biologia , Nome_3 == miriam );
+        ( Curso_3 == biologia , Nome_4 == miriam );
+        ( Curso_4 == biologia , Nome_5 == miriam )
+    ),
+    
+     todosdiferentes([ Curso_1 , Curso_2 , Curso_3 , Curso_4 , Curso_5 ]),
+    
+    %------------VESTIDOS------------
+    vestido(Vestido_1),
+    vestido(Vestido_2),
+    vestido(Vestido_3),
+    vestido(Vestido_4),
+    vestido(Vestido_5),
+    
+    
+    %A mulher de 26 anos esta com o vestido Azul.
+     
+    (  
+      ( Idade_1 == vinte_seis, Vestido_1 == azul) ;
+      ( Idade_2 == vinte_seis , Vestido_2 == azul ); 
+      ( Idade_3 == vinte_seis , Vestido_3 == azul); 
+      ( Idade_4 == vinte_seis , Vestido_4 == azul); 
+      ( Idade_5 == vinte_seis , Vestido_5 == azul)
+      
+    ),      
+    
+    %A mulher do vestido Amarelo tem 29 anos.
+    (  
+    
+      ( Vestido_1 == amarelo , Idade_1 == vinte_nove );
+      ( Vestido_2 == amarelo , Idade_2 == vinte_nove );
+      ( Vestido_3 == amarelo , Idade_3 == vinte_nove );
+      ( Vestido_4 == amarelo , Vestido_4 == amarelo  );  
+      ( Vestido_5 == amarelo , Idade_5 == vinte_nove )
+      
+      
+    ),  
+         
+    %A mulher mais nova esta em algum lugar a direita da mulher do vestido Azul.
+ 
+    (
+       (  Vestido_1 == azul , ( Idade_2 == vinte_cinco ; Idade_3 == vinte_cinco ; Idade_4 == vinte_cinco ; Idade_5 == vinte_cinco ) ) ;
+       (  Vestido_2 == azul , ( Idade_3 == vinte_cinco ; Idade_4 == vinte_cinco ; Idade_5 == vinte_cinco )) ;
+       (  Vestido_3 == azul , ( Idade_4 == vinte_cinco ; Idade_5 == vinte_cinco )) ;
+       (  Vestido_4 == azul , Idade_5 == vinte_cinco )  
+       
+    ),
+    
+   
+    
+    %A mulher do vestido Verde esta na quarta posicao
+    (  
+        
+         Vestido_4 == verde
+    
+    ),
+    
+    %A mulher de Verde esta em algum lugar a esquerda da mulher de Vermelho
+    
+    (
+        (  Vestido_1 == verde   , Vestido_2 == vermelho);
+        (   (  Vestido_1 == verde ; Vestido_2 == verde ), Vestido_3 == vermelho );
+        (   (  Vestido_1 == verde ; Vestido_2 == verde ; Vestido_3 == verde ), Vestido_4 == vermelho );
+        (   (  Vestido_1 == verde ; Vestido_2 == verde ; Vestido_3 == verde ; Vestido_4 == verde ) , Vestido_5 == vermelho)
+    ),
+
+   
+    
+    %A formanda de Farmacia esta exatamente a direita da formanda de vestido Azul.
+    (   
+        (  Vestido_1 == azul , Curso_2 == farmacia  );
+        (  Vestido_2 == azul , Curso_3 == farmacia  );
+        (  Vestido_3 == azul , Curso_4 == farmacia  );
+        (  Vestido_4 == azul , Curso_5 == farmacia )
+    ),
+    
+     todosdiferentes([Vestido_1,Vestido_2,Vestido_3,Vestido_4,Vestido_5]),
+    
+    %------------BEBIDAS------------
+    bebida(Bebida_1),
+    bebida(Bebida_2),
+    bebida(Bebida_3),
+    bebida(Bebida_4),
+    bebida(Bebida_5),
+    
+       %A mulher de 27 anos esta exatamente a direita da mulher que esta bebendo Refrigerante
+    
+    (  
+      (  Bebida_1 == refrigerante ,  Idade_2 == vinte_sete ) ;
+      (  Bebida_2 == refrigerante ,  Idade_3 == vinte_sete  ) ;
+      (  Bebida_3 == refrigerante ,  Idade_4 == vinte_sete  ) ;
+      (  Bebida_4 == refrigerante ,  Idade_5 == vinte_sete  )
+
+    ),
+    
+    
+    %Na quinta posicao esta a formanda que esta bebendo Cerveja.
+    (         
+          Bebida_5 == cerveja
+    ),
+    
+    %Jade esta em algum lugar entre quem esta bebendo Suco e a Carina, nessa ordem.
+    (
+    	
+    
+        (  Bebida_1 == suco , Nome_2 == jade ,( Nome_3 == carina ; Nome_4 == carina ; Nome_5 == carina  )  );
+        
+    	(( Bebida_1 == suco ; Bebida_2 == suco ) , Nome_3 == jade , (   Nome_4 == carina; Nome_5 == carina  ) );
+        (  Bebida_2 == suco , ( Nome_3 == jade ; Nome_4 == jade  ) , Nome_5 == carina    );
+        (  Bebida_3 == suco , Nome_4 == jade ,   Nome_5 == carina   )
+        
+    
+    
+    
+     ),    
+ 
+    %A formanda de Fisioterapia esta exatamente a esquerda de quem esta bebendo ́Agua.
+    (
+        (  Curso_1 == fisioterapia  , Bebida_2 == agua );
+        (  Curso_2 == fisioterapia  , Bebida_3 == agua );
+        (  Curso_3 == fisioterapia  , Bebida_4 == agua );
+        (  Curso_4 == fisioterapia  , Bebida_5 == agua )
+    
+    ),
+    
+    %Quem esta bebendo Suco esta em algum lugar entre a Leila e quem esta bebendo Destilado, nessa ordem.
+       (
+        (  Nome_1 == leila ,  Bebida_2 == suco , Bebida_3 == destilado );
+         (  Nome_1 == leila  , Bebida_2 == suco , Bebida_4 == destilado );
+         (  Nome_1 == leila  , Bebida_2 == suco , Bebida_5 == destilado );
+            (  Nome_1 == leila , Bebida_3 == suco  , Bebida_5 == destilado );
+            (  Nome_1 == leila , Bebida_4 == suco  , Bebida_5 == destilado );
+    
+        (  Nome_2 == leila ,  Bebida_3 == suco , Bebida_4 == destilado );
+        (  Nome_2 == leila ,  Bebida_3 == suco , Bebida_5 == destilado   );
+        (  Nome_2 == leila ,  Bebida_4 == suco , Bebida_5 == destilado   );
+    
+        (  Nome_3 == leila ,  Bebida_4 == suco , Bebida_5 == destilado )
+         
+    ),
+    
+
+    todosdiferentes([Bebida_1,Bebida_2,Bebida_3,Bebida_4,Bebida_5]),
+   
+    
+    %------------COMIDAS------------
+    comida(Comida_1),
+    comida(Comida_2),
+    comida(Comida_3),
+    comida(Comida_4),
+    comida(Comida_5),
+    
+    %Quem esta comendo Esfirra esta exatamente a esquerda de quem esta comendo Coxinha.
+    (
+      ( Comida_1 == esfirra  ,  Comida_2 == coxinha  );
+      ( Comida_2 == esfirra  ,  Comida_3 == coxinha );
+      ( Comida_3 == esfirra  ,  Comida_4 == coxinha  );
+      ( Comida_4 == esfirra  ,  Comida_5 == coxinha  )
+
+    ),
+    
+    %Em uma das pontas esta a formanda que esta comendo Coxinha
+   
+    (Comida_1 == coxinha  ;  Comida_5 == coxinha),
+    
+    %Quem esta comendo Risole esta se formando em Fisioterapia.
+    (
+    	(   Comida_1 == risole , Curso_1 == fisioterapia );
+    	(   Comida_2 == risole , Curso_2 == fisioterapia );
+    	(   Comida_3 == risole , Curso_3 == fisioterapia );
+    	(   Comida_4 == risole , Curso_4 == fisioterapia );
+    	(   Comida_5 == risole , Curso_5 == fisioterapia )
+      
+    ),
+ 
+    
+    %A formanda de 27 anos esta comendo Pastel
+    
+
+    (  
+    	(  Idade_1 == vinte_sete , Comida_1 == pastel );
+        (  Idade_2 == vinte_sete , Comida_2 == pastel);
+    	(  Idade_3 == vinte_sete , Comida_3 == pastel );
+    	(  Idade_4 == vinte_sete , Comida_4 == pastel );
+    	(  Idade_5 == vinte_sete , Comida_5 == pastel )
+       
+    
+    ),
+    
+    %Quem esta comendo Esfirra esta bebendo ́Agua.
+    
+    (  
+        ( Comida_1 == esfirra , Bebida_1 == agua );
+        ( Comida_2 == esfirra , Bebida_2 == agua );
+        ( Comida_3 == esfirra , Bebida_3 == agua );
+        ( Comida_4 == esfirra , Bebida_4 == agua );
+        ( Comida_5 == esfirra , Bebida_5 == agua )
+    
+    ),
+    
+    %A formanda de Veterinaria esta comendo Coxinha
+    (  
+    
+    	( Curso_1 == veterinaria , Comida_1 == coxinha );
+   		( Curso_2 == veterinaria , Comida_2 == coxinha );
+    	( Curso_3 == veterinaria , Comida_3 == coxinha );
+   		( Curso_4 == veterinaria , Comida_4 == coxinha );
+    	( Curso_5 == veterinaria , Comida_5 == coxinha ) 
+      
+    ),
+    
+
+    
+    
+    todosdiferentes([Comida_1,Comida_2,Comida_3,Comida_4,Comida_5]).%__Fim do modelo.
+
+
+	
+    %Definicao de todosdiferentes
+    todosdiferentes([]).
+    todosdiferentes([H|T]):- not(member(H,T)),todosdiferentes(T).
+
+    imprime_lista([]):- write('\n-----------------------------------------------------------------------\n'),
+    					write('\n Fim da exibição \n').
+        				
+    imprime_lista([H|T]):-
+    	write('\n-----------------------------------------------------------------------\n'),
+        write('\n Informações sobre as mulheres: \n'),
+        write(H), 
+        imprime_lista(T).
+
+
+
+
+
+
+
